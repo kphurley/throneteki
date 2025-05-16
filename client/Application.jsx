@@ -10,10 +10,10 @@ import { useVerifyAuthenticationQuery } from './redux/middleware/api';
 import { setAuthTokens, setUser } from './redux/reducers/auth';
 import { startConnecting } from './redux/reducers/lobby';
 import { navigate } from './redux/reducers/navigation';
-import Background from './assets/img/bgs/mainbg.png';
 import BlankBg from './assets/img/bgs/blank.png';
 import StandardBg from './assets/img/bgs/background.png';
 import WinterBg from './assets/img/bgs/background2.png';
+import StarWarsArt from './assets/img/bgs/star-wars-art.jpg';
 import LoadingSpinner from './Components/Site/LoadingSpinner';
 
 const backgrounds = {
@@ -96,16 +96,7 @@ const Application = () => {
 
     useEffect(() => {
         if (gameBoardVisible && user) {
-            const settings = user.settings;
-            const background = settings.background;
-
-            if (bgRef.current && background === 'custom' && settings.customBackgroundUrl) {
-                bgRef.current.style.backgroundImage = `url('/img/bgs/${settings.customBackgroundUrl}')`;
-            } else if (bgRef.current) {
-                bgRef.current.style.backgroundImage = `url('${backgrounds[background]}')`;
-            }
-        } else if (bgRef.current) {
-            bgRef.current.style.backgroundImage = `url('${Background}')`;
+            bgRef.current.style.backgroundImage = `url('${StarWarsArt}')`;
         }
     }, [gameBoardVisible, user]);
 
