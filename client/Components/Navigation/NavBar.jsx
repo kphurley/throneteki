@@ -205,11 +205,7 @@ const NavBar = () => {
             </NavbarContent>
             <NavbarContent className='hidden lg:flex' justify='center'>
                 <NavbarBrand as={Link} href='/'>
-                    <Image
-                        src={currentGame?.started ? SmallHeaderIcon : HeaderIcon}
-                        style={{ height: '48px' }}
-                        alt='The Iron Throne Logo'
-                    />
+                    The Force Struggle
                 </NavbarBrand>
             </NavbarContent>
             <NavbarContent className='hidden lg:flex' justify='end'>

@@ -674,7 +674,7 @@ export const init = function (server, options) {
 
             user.enableGravatar = userToSet.enableGravatar;
 
-            await downloadAvatar(user);
+            //await downloadAvatar(user);
 
             await userService.update(user);
 

@@ -22,3 +22,7 @@ client/out
 # Sentry Config File
 .env.sentry-build-plugin
 .env.local
+
+# MacOS
+.DS_Store
+public/.DS_Store
