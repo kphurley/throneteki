@@ -29,6 +29,7 @@ class PendingGame {
         this.delayToStartClock = details.delayToStartClock;
         this.started = false;
         this.maxPlayers = 2;
+        this.ownerSide = details.ownerSide;
     }
 
     // Getters
@@ -103,8 +104,19 @@ class PendingGame {
             id: id,
             name: user.username,
             user: user,
-            owner: this.owner.username === user.username
+            owner: this.owner.username === user.username,
+            side: this.getSideByUser(user)
         };
+    }
+
+    getSideByUser(user) {
+        if (this.owner.username === user.username) {
+            return this.ownerSide;
+        } else {
+            // This user is not the owner, so return the opposite side
+            // of the owner
+            return this.ownerSide === 'Light' ? 'Dark' : 'Light';
+        }
     }
 
     addSpectator(id, user) {
@@ -362,7 +374,8 @@ class PendingGame {
                 name: player.name,
                 owner: player.owner,
                 role: player.user.role,
-                settings: player.user.settings
+                settings: player.user.settings,
+                side: player.side
             };
         });
 
@@ -395,7 +408,8 @@ class PendingGame {
             muteSpectators: this.muteSpectators,
             useChessClocks: this.useChessClocks,
             chessClockTimeLimit: this.chessClockTimeLimit,
-            delayToStartClock: this.delayToStartClock
+            delayToStartClock: this.delayToStartClock,
+            ownerSide: this.ownerSide
         };
     }
 

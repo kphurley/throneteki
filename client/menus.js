@@ -1,5 +1,5 @@
 export const LeftMenu = [
-    { path: '/decks', title: 'Decks', showOnlyWhenLoggedIn: true },
+    // { path: '/decks', title: 'Decks', showOnlyWhenLoggedIn: true },
     { path: '/play', title: 'Play' },
     {
         title: 'Help',

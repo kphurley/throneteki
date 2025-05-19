@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import * as yup from 'yup';
 
 import GameOptions from './GameOptions';
 import GameTypes from './GameTypes';
-import { useGetRestrictedListQuery } from '../../redux/middleware/api';
+//import { useGetRestrictedListQuery } from '../../redux/middleware/api';
 import Panel from '../Site/Panel';
 import { sendNewGameMessage } from '../../redux/reducers/lobby';
 import AlertPanel, { AlertType } from '../Site/AlertPanel';
@@ -21,24 +21,25 @@ const NewGame = ({
     onClosed
 }) => {
     const dispatch = useDispatch();
-    const { data: restrictedLists } = useGetRestrictedListQuery({});
+    //const { data: restrictedLists } = useGetRestrictedListQuery({});
 
     const connected = useSelector((state) => state.lobby.connected);
     const user = useSelector((state) => state.auth.user);
-    const [restrictedList, setRestrictedList] = useState(restrictedLists?.[0]._id);
+    //const [restrictedList, setRestrictedList] = useState(restrictedLists?.[0]._id);
+    const [side, setSide] = useState('Light');
 
-    useEffect(() => {
-        if (!restrictedList && restrictedLists?.length) {
-            setRestrictedList(restrictedLists[0]._id);
-        }
-    }, [restrictedList, restrictedLists]);
+    // useEffect(() => {
+    //     if (!restrictedList && restrictedLists?.length) {
+    //         setRestrictedList(restrictedLists[0]._id);
+    //     }
+    // }, [restrictedList, restrictedLists]);
 
-    const restrictedListsById = useMemo(() => {
-        return restrictedLists?.reduce((acc, rl) => {
-            acc[rl._id] = rl;
-            return acc;
-        }, {});
-    }, [restrictedLists]);
+    // const restrictedListsById = useMemo(() => {
+    //     return restrictedLists?.reduce((acc, rl) => {
+    //         acc[rl._id] = rl;
+    //         return acc;
+    //     }, {});
+    // }, [restrictedLists]);
 
     const schema = yup.object({
         name: yup
@@ -81,9 +82,7 @@ const NewGame = ({
             <Formik
                 validationSchema={schema}
                 onSubmit={(values) => {
-                    const newGame = Object.assign({}, values, {
-                        restrictedList: restrictedListsById[restrictedList]
-                    });
+                    const newGame = Object.assign({}, values, { ownerSide: side });
 
                     dispatch(sendNewGameMessage(newGame));
                 }}
@@ -138,17 +137,12 @@ const NewGame = ({
                                             </div>
                                             <div>
                                                 <Select
-                                                    label={'Mode'}
-                                                    selectedKeys={new Set([restrictedList])}
-                                                    onChange={(e) =>
-                                                        setRestrictedList(e.target.value)
-                                                    }
+                                                    label={'Side'}
+                                                    selectedKeys={[side]}
+                                                    onChange={(e) => setSide(e.target.value)}
                                                 >
-                                                    {restrictedLists?.map((rl) => (
-                                                        <SelectItem key={rl._id} value={rl._id}>
-                                                            {rl.name}
-                                                        </SelectItem>
-                                                    ))}
+                                                    <SelectItem key={'Light'}>Light</SelectItem>
+                                                    <SelectItem key={'Dark'}>Dark</SelectItem>
                                                 </Select>
                                             </div>
                                         </div>

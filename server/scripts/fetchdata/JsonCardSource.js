@@ -39,16 +39,23 @@ class JsonCardSource {
     }
 
     addLabelToCards(cards) {
-        for (let card of cards) {
-            let cardsByName = _.filter(cards, (filterCard) => {
-                return filterCard.name === card.name;
-            });
+        // Don't need to worry about this yet
 
-            if (cardsByName.length > 1) {
-                card.label = card.name + ' (' + card.packCode + ')';
-            } else {
-                card.label = card.name;
-            }
+        // for (let card of cards) {
+        //     let cardsByName = _.filter(cards, (filterCard) => {
+        //         return filterCard.name === card.name;
+        //     });
+
+        //     if (cardsByName.length > 1) {
+        //         card.label = card.name + ' (' + card.packCode + ')';
+        //     } else {
+        //         card.label = card.name;
+        //     }
+        // }
+
+        // Just going to set it to the name for now
+        for (let card of cards) {
+            card.label = card.name;
         }
     }
 

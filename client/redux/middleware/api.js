@@ -141,6 +141,17 @@ export const apiSlice = createApi({
                 ...(result.data || [].map(({ _id }) => ({ type: TagTypes.Deck, _id })))
             ]
         }),
+        getStarterDecks: builder.query({
+            query: (side) => {
+                return {
+                    url: `/decks/starter/${side}`
+                };
+            },
+            providesTags: (result = { data: [] }) => [
+                TagTypes.Deck,
+                ...(result.data || [].map(({ _id }) => ({ type: TagTypes.Deck, _id })))
+            ]
+        }),
         getDecks: builder.query({
             query: (loadOptions) => {
                 return {
@@ -471,6 +482,7 @@ export const apiSlice = createApi({
 export const {
     useGetNewsQuery,
     useGetAllNewsQuery,
+    useGetStarterDecksQuery,
     useGetDecksQuery,
     useGetCardsQuery,
     useGetRestrictedListQuery,
