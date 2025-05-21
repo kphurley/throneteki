@@ -4,7 +4,7 @@
       {
         "type": "shell",
         "label": "Fetch Card Data",
-        "command": "node server${pathSeparator}scripts${pathSeparator}fetchdata.js && node server${pathSeparator}scripts${pathSeparator}importstandalonedecks.js",
+        "command": "node server${pathSeparator}scripts${pathSeparator}fetchdata.js",
         "problemMatcher": []
       },
       {

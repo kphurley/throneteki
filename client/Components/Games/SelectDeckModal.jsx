@@ -1,30 +1,28 @@
 import React from 'react';
 import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
-import DeckList from '../Decks/DeckList';
+import { useGetStarterDecksQuery } from '../../redux/middleware/api';
+import LoadingSpinner from '../Site/LoadingSpinner';
 
-const SelectDeckModal = ({ onClose, onDeckSelected, restrictedList }) => {
+const SelectDeckModal = ({ onClose, onDeckSelected, side }) => {
     //  const standaloneDecks = useSelector((state) => state.cards.standaloneDecks);
+    const { data: decks, isLoading } = useGetStarterDecksQuery(side);
+
     return (
         <>
             <Modal isOpen={true} onClose={onClose} size='5xl'>
                 <ModalContent>
                     <ModalHeader>{'Select Deck'}</ModalHeader>
                     <ModalBody>
-                        <div>
-                            <DeckList
-                                onDeckSelected={onDeckSelected}
-                                readOnly={true}
-                                restrictedList={restrictedList}
-                            />
-                            {/*standaloneDecks && standaloneDecks.length !== 0 && (
+                        {isLoading ? (
+                            <LoadingSpinner label={'Loading decks...'} />
+                        ) : (
                             <div>
-                                <h4 className='deck-list-header'>
-                                    <Trans>Or choose a standalone deck</Trans>:
-                                </h4>
-                                <DeckList standaloneDecks onDeckSelected={onDeckSelected} />
+                                <h4 className='deck-list-header'>Choose a starter deck</h4>
+                                {decks.map((deck) => (
+                                    <div key={deck._id}>{deck.name}</div>
+                                ))}
                             </div>
-                        )*/}
-                        </div>
+                        )}
                     </ModalBody>
                 </ModalContent>
             </Modal>

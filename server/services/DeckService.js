@@ -10,7 +10,7 @@ class DeckService {
 
     async init() {
         this.packs = await this.cardService.getAllPacks();
-        this.restrictedLists = await this.cardService.getRestrictedList();
+        //this.restrictedLists = await this.cardService.getRestrictedList();
         this.cards = await this.cardService.getAllCards();
     }
 
@@ -25,12 +25,12 @@ class DeckService {
 
         formattedDeck.status = {};
 
-        for (const restrictedList of this.restrictedLists) {
-            formattedDeck.status[restrictedList._id] = validateDeck(formattedDeck, {
-                packs: this.packs,
-                restrictedLists: [restrictedList]
-            });
-        }
+        // for (const restrictedList of this.restrictedLists) {
+        //     formattedDeck.status[restrictedList._id] = validateDeck(formattedDeck, {
+        //         packs: this.packs,
+        //         restrictedLists: [restrictedList]
+        //     });
+        // }
 
         return formattedDeck;
     };
@@ -71,6 +71,12 @@ class DeckService {
             logger.error('Unable to fetch standalone deck %s', err);
             throw new Error('Unable to fetch standalone deck ' + id);
         });
+    }
+
+    async findByStarterDecks(side) {
+        const dbDecks = await this.decks.find({ username: 'STARTERDECKS', side: side });
+
+        return dbDecks.map(this.processDeck);
     }
 
     async findByUserName(username, options = {}) {
@@ -164,24 +170,23 @@ class DeckService {
 
     async create(deck) {
         //if the eventId is set on a new deck, check if the user already has a deck with the same eventId
-        if (deck.eventId) {
-            //if a deck for the event already exists, do not create the new deck
-            if (await this.userAlreadyHasDeckForEvent(deck.username, deck.eventId)) {
-                throw new Error(
-                    `User ${deck.username} already has a deck configured for event ${deck.eventId}`
-                );
-            }
-        }
+        // if (deck.eventId) {
+        //     //if a deck for the event already exists, do not create the new deck
+        //     if (await this.userAlreadyHasDeckForEvent(deck.username, deck.eventId)) {
+        //         throw new Error(
+        //             `User ${deck.username} already has a deck configured for event ${deck.eventId}`
+        //         );
+        //     }
+        // }
 
         let properties = {
             username: deck.username,
             name: deck.name,
-            plotCards: deck.plotCards,
-            bannerCards: deck.bannerCards,
+            objectiveCards: deck.objectiveCards,
             drawCards: deck.drawCards,
-            eventId: deck.eventId,
-            faction: deck.faction,
-            agenda: deck.agenda,
+            //eventId: deck.eventId,
+            affiliation: deck.affiliation,
+            side: deck.side,
             lastUpdated: new Date()
         };
 

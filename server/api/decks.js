@@ -32,13 +32,10 @@ export const init = async function (server, options) {
     );
 
     server.get(
-        '/api/decks',
+        '/api/decks/starter/:side',
         passport.authenticate('jwt', { session: false }),
         wrapAsync(async function (req, res) {
-            let decks = await deckService.findByUserName(
-                req.user.username,
-                qs.parse(req._parsedUrl.query, { allowDots: true })
-            );
+            let decks = await deckService.findByStarterDecks(req.params.side);
             res.send(decks);
         })
     );

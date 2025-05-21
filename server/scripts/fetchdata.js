@@ -16,7 +16,7 @@ const optionsDefinition = [
     {
         name: 'card-dir',
         type: String,
-        defaultValue: path.join(__dirname, '..', '..', 'throneteki-json-data')
+        defaultValue: path.join(__dirname, '..', '..', 'swlcgdb-json-data')
     },
     { name: 'image-source', type: String, defaultValue: 'cardgamedb' },
     {
@@ -24,7 +24,7 @@ const optionsDefinition = [
         type: String,
         defaultValue: path.join(__dirname, '..', '..', 'public', 'img', 'cards')
     },
-    { name: 'no-images', type: Boolean, defaultValue: false }
+    { name: 'no-images', type: Boolean, defaultValue: true }
 ];
 
 function createDataSource(options) {
@@ -59,4 +59,6 @@ let dataSource = createDataSource(options);
 let imageSource = createImageSource(options);
 let cardImport = new CardImport(db, dataSource, imageSource, options['image-dir']);
 
-cardImport.import();
+await cardImport.import();
+
+process.exit(0);

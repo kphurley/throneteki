@@ -288,7 +288,7 @@ const PendingGame = () => {
                         setShowModal(false);
                         dispatch(sendSelectDeckMessage(deck._id));
                     }}
-                    restrictedList={currentGame.restrictedList?._id}
+                    side={currentGame.players[user.username].side}
                 />
             )}
         </>
