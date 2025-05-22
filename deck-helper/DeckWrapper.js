@@ -1,17 +1,20 @@
 class DeckWrapper {
     constructor(rawDeck) {
-        this.agenda = rawDeck.agenda;
-        this.bannerCards = rawDeck.bannerCards || [];
+        //this.agenda = rawDeck.agenda;
+        this.affiliation = rawDeck.affiliation;
+        //this.bannerCards = rawDeck.bannerCards || [];
         this.draftedCards = rawDeck.draftedCards || [];
         this.drawCards = rawDeck.drawCards;
         this.eventId = rawDeck.eventId;
-        this.faction = rawDeck.faction;
+        //this.faction = rawDeck.faction;
         this.format = rawDeck.format || 'joust';
-        this.plotCards = rawDeck.plotCards;
-        this.cardCoount = rawDeck.cardCount;
-        this.plotCount = rawDeck.plotCount;
+        //this.plotCards = rawDeck.plotCards;
+        this.objectiveCards = rawDeck.objectiveCards;
+        this.cardCount = rawDeck.cardCount;
+        //this.plotCount = rawDeck.plotCount;
+        this.objectiveCount = rawDeck.objectiveCount;
 
-        this.agendas = [this.agenda, ...this.bannerCards].filter((agenda) => !!agenda);
+        //this.agendas = [this.agenda, ...this.bannerCards].filter((agenda) => !!agenda);
     }
 
     getCardCountsByName() {
@@ -29,9 +32,7 @@ class DeckWrapper {
     }
 
     getCardsIncludedInDeck() {
-        return [...this.drawCards, ...this.plotCards].map(
-            (cardQuantity) => cardQuantity.card
-        );
+        return [...this.drawCards, ...this.plotCards].map((cardQuantity) => cardQuantity.card);
     }
 
     getUniqueCards() {
@@ -55,6 +56,12 @@ class DeckWrapper {
     countPlotCards(predicate = () => true) {
         return this.getDeckCount(
             this.plotCards.filter((cardQuantity) => predicate(cardQuantity.card))
+        );
+    }
+
+    countObjectiveCards(predicate = () => true) {
+        return this.getDeckCount(
+            this.objectiveCards.filter((cardQuantity) => predicate(cardQuantity.card))
         );
     }
 

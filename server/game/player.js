@@ -464,9 +464,11 @@ class Player extends Spectator {
     prepareDecks() {
         var deck = new Deck(this.deck);
         var preparedDeck = deck.prepare(this);
-        this.plotDeck = preparedDeck.plotCards;
-        this.agendas = preparedDeck.agendas;
-        this.faction = preparedDeck.faction;
+        //this.plotDeck = preparedDeck.plotCards;
+        this.objectiveDeck = preparedDeck.objectiveCards;
+        //this.agendas = preparedDeck.agendas;
+        //this.faction = preparedDeck.faction;
+        this.affiliation = preparedDeck.affiliation;
         this.drawDeck = preparedDeck.drawCards;
         this.preparedDeck = preparedDeck;
 
@@ -474,7 +476,8 @@ class Player extends Spectator {
     }
 
     initialise() {
-        this.createFactionAndAgendas();
+        //this.createFactionAndAgendas()
+        this.createAffiliationCard();
 
         this.gold = 0;
         this.readyToStart = false;
@@ -487,6 +490,12 @@ class Player extends Spectator {
         let deck = new Deck(this.deck);
         this.faction = deck.createFactionCard(this);
         this.agendas = deck.createAgendaCards(this);
+    }
+
+    createAffiliationCard() {
+        let deck = new Deck(this.deck);
+        this.affiliation = deck.createAffiliationCard(this);
+        this.side = deck.side;
     }
 
     hasFlag(flagName) {
@@ -1116,11 +1125,11 @@ class Player extends Spectator {
         this.deck = deck;
         this.deck.selected = true;
 
-        this.faction.cardData = deck.faction;
-        this.faction.cardData.name = deck.faction.name;
-        this.faction.cardData.code = deck.faction.value;
-        this.faction.cardData.type = 'faction';
-        this.faction.cardData.strength = 0;
+        this.faction.cardData = deck.affiliation;
+        this.faction.cardData.name = deck.affiliation.name;
+        //this.faction.cardData.code = deck.faction.value;
+        this.faction.cardData.type = 'affiliation';
+        //this.faction.cardData.strength = 0;
     }
 
     moveCard(card, targetLocation, options = {}, callback) {

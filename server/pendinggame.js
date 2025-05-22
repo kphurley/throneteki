@@ -56,10 +56,12 @@ class PendingGame {
     getSaveState() {
         var players = _.map(this.getPlayers(), (player) => {
             return {
-                agendas: player.agendas
-                    ? player.agendas.map((agenda) => agenda.cardData.name)
-                    : undefined,
-                faction: player.faction.cardData.name,
+                // agendas: player.agendas
+                //     ? player.agendas.map((agenda) => agenda.cardData.name)
+                //     : undefined,
+                // faction: player.faction.cardData.name,
+                affiliation: player.deck.affiliation.name,
+                side: player.side,
                 name: player.name
             };
         });
@@ -274,8 +276,8 @@ class PendingGame {
         player.deck = deck;
         player.deck.selected = true;
 
-        this.setupFaction(player, deck.faction);
-        this.setupAgendas(player, deck.agenda, ...deck.bannerCards);
+        //this.setupFaction(player, deck.faction);
+        //this.setupAgendas(player, deck.agenda, ...deck.bannerCards);
     }
 
     // interrogators

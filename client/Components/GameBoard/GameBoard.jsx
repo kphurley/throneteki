@@ -30,8 +30,9 @@ const placeholderPlayer = {
         discardPile: [],
         hand: [],
         outOfGamePile: [],
-        plotDeck: [],
-        plotDiscard: [],
+        //plotDeck: [],
+        //plotDiscard: [],
+        objectiveDeck: [],
         shadows: []
     },
     faction: null,
@@ -160,7 +161,8 @@ const GameBoard = () => {
                 />
                 {cardToZoom && (
                     <CardZoom
-                        imageUrl={'/img/cards/' + cardToZoom.code + '.png'}
+                        //imageUrl={'/img/cards/' + cardToZoom.code + '.png'}
+                        imageUrl={`https://swlcg-card-images.nyc3.digitaloceanspaces.com/cards/${cardToZoom.block}-${cardToZoom.blockNumber}.jpg`}
                         orientation={
                             cardToZoom
                                 ? cardToZoom.type === 'plot'

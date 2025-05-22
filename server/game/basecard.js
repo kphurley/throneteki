@@ -51,6 +51,8 @@ class BaseCard {
         this.uuid = uuid.v1();
         this.code = cardData.code;
         this.name = cardData.name;
+        this.block = cardData.block;
+        this.blockNumber = cardData.blockNumber;
         this.facedown = false;
         this.keywords = new KeywordsProperty();
         this.traits = new ReferenceCountedSetProperty();
@@ -843,11 +845,11 @@ class BaseCard {
     getShortSummary(isVisible = true) {
         if (!isVisible) {
             return {
-                facedown: true,
-                shadowPosition:
-                    this.location === 'shadows'
-                        ? this.controller.shadows.indexOf(this) + 1
-                        : undefined
+                facedown: true
+                // shadowPosition:
+                //     this.location === 'shadows'
+                //         ? this.controller.shadows.indexOf(this) + 1
+                //         : undefined
             };
         }
         return {
@@ -867,9 +869,11 @@ class BaseCard {
 
         let state = {
             code: this.cardData.code,
+            block: this.cardData.block,
+            blockNumber: this.cardData.blockNumber,
             controlled: this.owner !== this.controller && this.getType() !== 'title',
             facedown: this.facedown,
-            factionStatus: this.getFactionStatus(),
+            //factionStatus: this.getFactionStatus(),
             menu: this.getMenu(activePlayer),
             name: this.cardData.label,
             new: this.new,

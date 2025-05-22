@@ -966,11 +966,12 @@ class Game extends EventEmitter {
             return cards.concat(player.preparedDeck.allCards);
         }, []);
 
-        if (this.isMelee) {
-            this.allCards = this.titlePool.cards.concat(playerCards);
-        } else {
-            this.allCards = playerCards;
-        }
+        // if (this.isMelee) {
+        //     this.allCards = this.titlePool.cards.concat(playerCards);
+        // } else {
+        //     this.allCards = playerCards;
+        // }
+        this.allCards = playerCards;
     }
 
     checkForTimeExpired() {

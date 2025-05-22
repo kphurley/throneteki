@@ -380,7 +380,7 @@ const Card = ({
                 absolute: !!style?.left,
                 relative: !style?.left,
                 [`card-type-${card.type}`]: card.type,
-                'custom-card': card.code && card.code.startsWith('custom'),
+                //'custom-card': card.code && card.code.startsWith('custom'),
                 horizontal: orientation !== 'vertical' || card.kneeled,
                 vertical: orientation === 'vertical' && !card.kneeled,
                 'grayscale brightness-75': card.unselectable,
@@ -427,10 +427,8 @@ const Card = ({
     };
 
     const imageUrl = !isFacedown()
-        ? `/img/cards/${card.code}.png`
-        : source === 'shadows'
-          ? '/img/cards/cardback_shadow.png'
-          : '/img/cards/cardback.png';
+        ? `https://swlcg-card-images.nyc3.digitaloceanspaces.com/cards/${card.block}-${card.blockNumber}.jpg`
+        : '/img/cards/cardback.png';
 
     const wrapperClass = classNames('m-0 inline-block select-none', {
         absolute: !!style?.left,

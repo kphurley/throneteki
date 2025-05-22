@@ -10,9 +10,10 @@ class SetupPhase extends Phase {
     constructor(game) {
         super(game, 'setup');
         this.initialise([
-            new SimpleStep(game, () => this.announceFactionAndAgenda()),
+            //new SimpleStep(game, () => this.announceFactionAndAgenda()),
+            new SimpleStep(game, () => this.announceAffiliationAndSide()),
             new SimpleStep(game, () => this.prepareDecks()),
-            new SimpleStep(game, () => this.turnOnEffects()),
+            //new SimpleStep(game, () => this.turnOnEffects()),
             new SimpleStep(game, () => this.drawSetupHand()),
             new KeepOrMulliganPrompt(game),
             new SimpleStep(game, () => this.startGame()),
@@ -36,12 +37,24 @@ class SetupPhase extends Phase {
         }
     }
 
+    announceAffiliationAndSide() {
+        for (const player of this.game.getPlayers()) {
+            player.createAffiliationCard();
+            this.game.addMessage(
+                '{0} announces they are playing as the {1} side with the {2} affiliation',
+                player,
+                player.side,
+                player.affiliation
+            );
+        }
+    }
+
     prepareDecks() {
         for (const player of this.game.getPlayers()) {
             player.prepareDecks();
         }
         this.game.gatherAllCards();
-        this.game.raiseEvent('onDecksPrepared');
+        //this.game.raiseEvent('onDecksPrepared');
     }
 
     turnOnEffects() {

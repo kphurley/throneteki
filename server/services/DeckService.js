@@ -76,7 +76,7 @@ class DeckService {
     async findByStarterDecks(side) {
         const dbDecks = await this.decks.find({ username: 'STARTERDECKS', side: side });
 
-        return dbDecks.map(this.processDeck);
+        return { success: true, data: dbDecks.map(this.processDeck) };
     }
 
     async findByUserName(username, options = {}) {

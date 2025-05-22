@@ -12,6 +12,7 @@ import DeckWrapper from './DeckWrapper.js';
 export function formatDeckAsFullCards(deck, data) {
     let newDeck = {
         _id: deck._id,
+        affiliation: deck.affiliation,
         draftCubeId: deck.draftCubeId,
         eventId: deck.eventId,
         locked: deck.locked,
@@ -19,26 +20,28 @@ export function formatDeckAsFullCards(deck, data) {
         name: deck.name,
         username: deck.username,
         lastUpdated: deck.lastUpdated,
-        isFavourite: !!deck.isFavourite,
-        faction: Object.assign({}, deck.faction)
+        isFavourite: !!deck.isFavourite
+        //faction: Object.assign({}, deck.faction)
     };
 
-    if (data.factions) {
-        newDeck.faction = data.factions[deck.faction.value];
-    }
+    // if (data.factions) {
+    //     newDeck.faction = data.factions[deck.faction.value];
+    // }
 
-    if (deck.agenda) {
-        newDeck.agenda = data.cards[deck.agenda.code];
-    }
+    // if (deck.agenda) {
+    //     newDeck.agenda = data.cards[deck.agenda.code];
+    // }
 
-    newDeck.bannerCards = (deck.bannerCards || []).map((card) => data.cards[card.code]);
+    //newDeck.bannerCards = (deck.bannerCards || []).map((card) => data.cards[card.code]);
     newDeck.draftedCards = deck.draftedCards || [];
     newDeck.drawCards = processCardCounts(deck.drawCards || [], data.cards);
-    newDeck.plotCards = processCardCounts(deck.plotCards || [], data.cards);
+    //newDeck.plotCards = processCardCounts(deck.plotCards || [], data.cards);
+    newDeck.objectiveCards = processCardCounts(deck.objectiveCards || [], data.cards);
 
     const wrappedDeck = new DeckWrapper(newDeck);
 
-    newDeck.plotCount = wrappedDeck.countPlotCards();
+    //newDeck.plotCount = wrappedDeck.countPlotCards();
+    newDeck.objectiveCount = wrappedDeck.countObjectiveCards();
     newDeck.drawCount = wrappedDeck.countDrawCards();
 
     return newDeck;

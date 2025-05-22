@@ -5,7 +5,8 @@ export { formatDeckAsShortCards } from './formatDeckAsShortCards.js';
 export const validateDeck = (deck, options) => {
     options = Object.assign({ includeExtendedStatus: true }, options);
 
-    let validator = new DeckValidator(options.packs, options.restrictedLists, options.customRules);
+    //let validator = new DeckValidator(options.packs, options.restrictedLists, options.customRules);
+    let validator = new DeckValidator(options.packs, options.customRules);
     let result = validator.validateDeck(deck);
 
     if (!options.includeExtendedStatus) {

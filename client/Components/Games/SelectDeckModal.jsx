@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
+import { Button, Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
 import { useGetStarterDecksQuery } from '../../redux/middleware/api';
 import LoadingSpinner from '../Site/LoadingSpinner';
 
@@ -19,7 +19,13 @@ const SelectDeckModal = ({ onClose, onDeckSelected, side }) => {
                             <div>
                                 <h4 className='deck-list-header'>Choose a starter deck</h4>
                                 {decks.map((deck) => (
-                                    <div key={deck._id}>{deck.name}</div>
+                                    <Button
+                                        color='primary'
+                                        key={deck._id}
+                                        onClick={() => onDeckSelected(deck)}
+                                    >
+                                        {deck.name}
+                                    </Button>
                                 ))}
                             </div>
                         )}
